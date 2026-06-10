@@ -1,11 +1,11 @@
-require('dotenv').config(); // <- ¡CRUCIAL! Debe ir en la línea 1 antes que cualquier otra cosa
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const conectarDB = require('./config/db.js');
 const ejecutarScraping = require('./services/scrapingService.js');
 const productoRoutes = require('./routes/productoRoutes.js');
 const authRoutes = require('./routes/authRoutes.js');
-const pedidoRoutes = require('./routes/pedidoRoutes.js');
+const pedidoRoutes = require('./routes/pedidoRoutes.js'); // <- 1. Importación verificada
 const Usuario = require('./models/Usuario.js'); 
 
 const app = express();
@@ -20,7 +20,7 @@ app.use(express.json());
 // Endpoints del Microservicio
 app.use('/api/productos', productoRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/pedidos', pedidoRoutes);
+app.use('/api/pedidos', pedidoRoutes); // <- 2. Middleware de ruta verificado
 
 // Ruta de prueba base
 app.get('/', (req, res) => {
