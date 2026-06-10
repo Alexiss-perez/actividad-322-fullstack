@@ -1,12 +1,12 @@
+require('dotenv').config(); // <- ¡CRUCIAL! Debe ir en la línea 1 antes que cualquier otra cosa
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
 const conectarDB = require('./config/db.js');
 const ejecutarScraping = require('./services/scrapingService.js');
 const productoRoutes = require('./routes/productoRoutes.js');
 const authRoutes = require('./routes/authRoutes.js');
 const pedidoRoutes = require('./routes/pedidoRoutes.js');
-const Usuario = require('./models/Usuario.js'); // Importar el modelo de usuario para el auto-registro
+const Usuario = require('./models/Usuario.js'); 
 
 const app = express();
 
@@ -35,7 +35,7 @@ const crearAdminPorDefecto = async () => {
             const nuevoAdmin = new Usuario({
                 nombre: "Administrador General",
                 email: "admin@ecommerce.cl",
-                password: "admin123456_security", // Bcrypt lo encriptará automáticamente gracias al modelo
+                password: "admin123456_security", 
                 rol: "admin"
             });
             await nuevoAdmin.save();
@@ -52,6 +52,6 @@ const crearAdminPorDefecto = async () => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {
     console.log(`Servidor backend corriendo en el puerto ${PORT}`);
-    await crearAdminPorDefecto(); // Gatillar la verificación de credenciales maestras
+    await crearAdminPorDefecto(); 
     await ejecutarScraping();
 });
